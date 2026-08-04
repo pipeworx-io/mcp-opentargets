@@ -1,20 +1,22 @@
-# mcp-opentargets
+# @pipeworx/opentargets
 
-Open Targets MCP — disease/target/drug knowledge graph.
+[Open Targets](https://platform.opentargets.org) MCP — disease/target/drug knowledge graph that integrates genetic, genomic, transcriptomic, and chemistry evidence. Keyless GraphQL public endpoint.
 
-Part of [Pipeworx](https://pipeworx.io) — an MCP gateway connecting AI agents to 1356+ live data sources.
+Part of [Pipeworx](https://pipeworx.io) — an MCP gateway connecting AI agents to 1394+ live data sources.
 
 ## Tools
 
-| Tool | Description |
-|------|-------------|
-| `target` | "Drug target profile for [gene]" / "is [gene] a druggable target" / "[gene] target info" / "target ID [ENSG...]" — fetch a drug-target profile (Open Targets uses Ensembl gene IDs as target identifiers). Returns approved symbol, name, biotype, protein IDs, pathways, synonyms. Use for target characterization in drug discovery. |
-| `disease` | "Disease profile for [EFO_N]" / "look up disease [ID]" — fetch a disease profile from Open Targets by EFO (Experimental Factor Ontology) ID. Returns name, description, therapeutic areas, ontology cross-refs. Pair with `disease_associations` to find drug targets for the disease. |
-| `drug` | "Drug info for [ChEMBL ID]" / "look up [drug] target info" / "[CHEMBL...] mechanism" — fetch a drug profile from Open Targets by ChEMBL ID. Returns name, mechanisms of action, indications, target genes, trade names, clinical-trial phase. Use for drug research, mechanism queries. |
-| `search` | "Find [disease / drug / gene target]" / "Open Targets lookup for [name]" / "what\'s the Open Targets ID for [X]" — text search across diseases, drug targets, and drugs in the Open Targets Platform (the leading drug-discovery knowledge graph). Returns ranked matches with their canonical IDs (ENSG... for targets, EFO_... for diseases, CHEMBL... for drugs). Use first to find IDs, then call target/disease/drug for details. |
-| `target_associations` | "What diseases is [gene] involved in" / "diseases associated with [target]" / "what does [gene] cause" — top disease associations for a drug target (Ensembl gene ID), scored by integrated Open Targets evidence (genetics, expression, animal models, drugs, literature, pathways). Use to triage what diseases a candidate target might address. |
-| `disease_associations` | "Best drug targets for [disease]" / "what genes are linked to [condition]" / "druggable targets in [disease]" — top drug-target candidates for a disease (EFO ID), scored by integrated evidence. Use for target discovery in a therapeutic area. |
-| `target_known_drugs` | "What drugs target [gene]" / "approved drugs against [target]" / "clinical-trial drugs for [gene]" — drugs that have been clinically tested or approved against a drug target (Ensembl gene ID). Returns drug names, mechanisms, indications, clinical trial phases. Use for competitive landscape / drug-repositioning queries. |
+- `target(ensembl_id)` — target (gene) profile
+- `disease(efo_id)` — disease profile
+- `drug(chembl_id)` — drug profile
+- `search(query, entity?, size?)` — platform search
+- `target_associations(ensembl_id, size?)` — top diseases for a target
+- `disease_associations(efo_id, size?)` — top targets for a disease
+- `target_known_drugs(ensembl_id, size?)` — clinically tested drugs for a target
+
+## Data source
+
+`https://api.platform.opentargets.org/api/v4/graphql`
 
 ## Quick Start
 
@@ -30,7 +32,7 @@ Add to your MCP client (Claude Desktop, Cursor, Windsurf, etc.):
 }
 ```
 
-Or connect to the full Pipeworx gateway for access to all 1356+ data sources:
+Or connect to the full Pipeworx gateway for access to all 1394+ data sources:
 
 ```json
 {
@@ -54,7 +56,7 @@ The gateway picks the right tool and fills the arguments automatically.
 
 ## More
 
-- [All tools and guides](https://github.com/pipeworx-io/examples)
+- [Docs and guides](https://pipeworx.io/docs)
 - [pipeworx.io](https://pipeworx.io)
 
 ## License
