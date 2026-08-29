@@ -1,6 +1,6 @@
 {
   "name": "@pipeworx/mcp-opentargets",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Open Targets MCP — disease/target/drug knowledge graph.",
   "type": "module",
   "main": "src/index.ts",

@@ -119,10 +119,21 @@ jobs:
         # returns a generic `ENEEDAUTH / You need to authorize this machine
         # using npm login`, which reads exactly like a forgotten credential and
         # sends you looking for a token. There is no token to find; that is the
-        # point. Verified live 2026-08-29 (mcp-opentargets run 33261239541).
+        # point. The ENEEDAUTH text itself was seen live in mcp-opentargets run
+        # 33261239541 — but note that run executed a plain `npm publish`, so the
+        # capture-and-translate below was NOT what produced it.
+        #
+        # `set -e` IS ON here: GitHub's default `run:` shell is `bash -e {0}` —
+        # visible in that run's own step header — and `set -uo pipefail` does not
+        # clear it. A bare `out=$(npm publish ...)` therefore aborts the step AT
+        # THE ASSIGNMENT the instant publish fails, swallowing npm's output AND
+        # skipping the translation, leaving a red step with an EMPTY log. Since
+        # every pack fails this way until its trusted publisher exists, that is
+        # the common path, not the edge case. `|| rc=$?` keeps the failure
+        # in-band. Do not "simplify" it back to a bare assignment.
         run: |
           set -uo pipefail
-          out=$(npm publish --access public 2>&1); rc=$?
+          out=$(npm publish --access public 2>&1) && rc=0 || rc=$?
           echo "$out"
           if [ $rc -ne 0 ] && echo "$out" | grep -q 'ENEEDAUTH'; then
             echo "::error::npm returned ENEEDAUTH. This almost certainly means no trusted publisher is configured for this package yet, NOT that a token is missing — this workflow publishes over OIDC and deliberately has no credential. Fix: from pipeworx-core, npm login (interactive, 2FA) then ./scripts/npm-trust-bulk.sh --only ${{ github.event.repository.name }}. See docs/npm-trusted-publishing.md."
