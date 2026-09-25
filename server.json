@@ -3,7 +3,7 @@
   "name": "io.github.pipeworx-io/opentargets",
   "title": "Opentargets",
   "description": "Open Targets MCP — disease/target/drug knowledge graph.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "websiteUrl": "https://pipeworx.io/packs/opentargets",
   "repository": {
     "url": "https://github.com/pipeworx-io/mcp-opentargets",
