@@ -1,12 +1,20 @@
 {
   "name": "@pipeworx/mcp-opentargets",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Open Targets MCP — disease/target/drug knowledge graph.",
   "type": "module",
-  "main": "src/index.ts",
-  "types": "src/index.ts",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./tools.json": "./tools.json",
+    "./package.json": "./package.json"
+  },
   "bin": {
     "mcp-opentargets": "bin/cli.js"
+  },
+  "files": ["bin/", "lib/", "tools.json", "server.json"],
+  "engines": {
+    "node": ">=18"
   },
   "keywords": ["mcp", "mcp-server", "model-context-protocol", "pipeworx", "opentargets"],
   "license": "MIT",
@@ -14,19 +22,12 @@
     "type": "git",
     "url": "git+https://github.com/pipeworx-io/mcp-opentargets.git"
   },
-  "scripts": {
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.30.0",
-    "tsx": "^4.19.0"
-  },
-  "devDependencies": {
-    "typescript": "^5.9.3",
-    "@cloudflare/workers-types": "^4.20260405.1"
-  },
+  "mcpName": "io.github.pipeworx-io/opentargets",
   "pipeworx": {
-    "sourceHash": "v1-b89a76079414d6fe368bf43e04b5848b4b8205e4a0ecb5551daec0c1dddc234c",
-    "sourceCommit": "f54ad77e789f27fe393978f9c080b5b18c87bb4f"
+    "mode": "gateway",
+    "slug": "opentargets",
+    "gatewaySlug": "opentargets",
+    "sourceHash": "v1-1e5205fe7ebd77bd647631626a86378ac770a47d815aeaa1fdf879ced0ba990d",
+    "sourceCommit": "b2c4383545bb35171d0ada2beb1c9c7168ea175e"
   }
 }

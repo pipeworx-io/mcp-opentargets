@@ -1,0 +1,129 @@
+[
+  {
+    "name": "target",
+    "description": "\"Drug target profile for [gene]\" / \"is [gene] a druggable target\" / \"[gene] target info\" / \"target ID [ENSG...]\" — fetch a drug-target profile (Open Targets uses Ensembl gene IDs as target identifiers). Returns approved symbol, name, biotype, protein IDs, pathways, synonyms. Use for target characterization in drug discovery.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "ensembl_id": {
+          "type": "string",
+          "description": "e.g. \"ENSG00000141510\" (TP53)"
+        }
+      },
+      "required": [
+        "ensembl_id"
+      ]
+    }
+  },
+  {
+    "name": "disease",
+    "description": "\"Disease profile for [EFO_N]\" / \"look up disease [ID]\" — fetch a disease profile from Open Targets by EFO (Experimental Factor Ontology) ID. Returns name, description, therapeutic areas, ontology cross-refs. Pair with `disease_associations` to find drug targets for the disease.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "efo_id": {
+          "type": "string",
+          "description": "e.g. \"EFO_0000270\" (asthma)"
+        }
+      },
+      "required": [
+        "efo_id"
+      ]
+    }
+  },
+  {
+    "name": "drug",
+    "description": "\"Drug info for [ChEMBL ID]\" / \"look up [drug] target info\" / \"[CHEMBL...] mechanism\" — fetch a drug profile from Open Targets by ChEMBL ID. Returns name, mechanisms of action, indications, target genes, trade names, clinical-trial phase. Use for drug research, mechanism queries.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "chembl_id": {
+          "type": "string",
+          "description": "e.g. \"CHEMBL1201583\" (imatinib)"
+        }
+      },
+      "required": [
+        "chembl_id"
+      ]
+    }
+  },
+  {
+    "name": "search",
+    "description": "\"Find [disease / drug / gene target]\" / \"Open Targets lookup for [name]\" / \"what's the Open Targets ID for [X]\" — text search across diseases, drug targets, and drugs in the Open Targets Platform (the leading drug-discovery knowledge graph). Returns ranked matches with their canonical IDs (ENSG... for targets, EFO_... for diseases, CHEMBL... for drugs). Use first to find IDs, then call target/disease/drug for details.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string"
+        },
+        "entity": {
+          "type": "string",
+          "description": "target | disease | drug (omit for all)"
+        },
+        "size": {
+          "type": "number",
+          "description": "1-50 (default 10)"
+        }
+      },
+      "required": [
+        "query"
+      ]
+    }
+  },
+  {
+    "name": "target_associations",
+    "description": "\"What diseases is [gene] involved in\" / \"diseases associated with [target]\" / \"what does [gene] cause\" — top disease associations for a drug target (Ensembl gene ID), scored by integrated Open Targets evidence (genetics, expression, animal models, drugs, literature, pathways). Use to triage what diseases a candidate target might address.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "ensembl_id": {
+          "type": "string"
+        },
+        "size": {
+          "type": "number",
+          "description": "1-50 (default 10)"
+        }
+      },
+      "required": [
+        "ensembl_id"
+      ]
+    }
+  },
+  {
+    "name": "disease_associations",
+    "description": "\"Best drug targets for [disease]\" / \"what genes are linked to [condition]\" / \"druggable targets in [disease]\" — top drug-target candidates for a disease (EFO ID), scored by integrated evidence. Use for target discovery in a therapeutic area.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "efo_id": {
+          "type": "string"
+        },
+        "size": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "efo_id"
+      ]
+    }
+  },
+  {
+    "name": "target_known_drugs",
+    "description": "\"What drugs target [gene]\" / \"approved drugs against [target]\" / \"clinical-trial drugs for [gene]\" — drugs that have been clinically tested or approved against a drug target (Ensembl gene ID). Returns drug names, mechanisms, indications, clinical trial phases. Use for competitive landscape / drug-repositioning queries.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "ensembl_id": {
+          "type": "string"
+        },
+        "size": {
+          "type": "number",
+          "description": "1-100 (default 25)"
+        }
+      },
+      "required": [
+        "ensembl_id"
+      ]
+    }
+  }
+]
