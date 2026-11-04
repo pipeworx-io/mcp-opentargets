@@ -1,6 +1,6 @@
 {
   "name": "@pipeworx/mcp-opentargets",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Open Targets MCP — disease/target/drug knowledge graph.",
   "type": "module",
   "main": "lib/index.js",
@@ -27,7 +27,7 @@
     "mode": "gateway",
     "slug": "opentargets",
     "gatewaySlug": "opentargets",
-    "sourceHash": "v1-1e5205fe7ebd77bd647631626a86378ac770a47d815aeaa1fdf879ced0ba990d",
-    "sourceCommit": "b2c4383545bb35171d0ada2beb1c9c7168ea175e"
+    "sourceHash": "v1-827f7abf685c4e0c7246e1b7f3778f521725a236d5bfd4996e8458c062ef0feb",
+    "sourceCommit": "243a06a6ca2d3b6075325f3b66a1468d0a2eb603"
   }
 }
